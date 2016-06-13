@@ -138,31 +138,31 @@ public class ForwardMail {
 
 		String cc = InternetAddress.toString(message
 				.getRecipients(Message.RecipientType.CC));
-		String to_cc;
-		if (cc == null || cc.isEmpty()) {
-			to_cc = "\nTO:"
-					+ InternetAddress.toString(message
-							.getRecipients(Message.RecipientType.TO)) + "\n";
-		} else {
-			to_cc = "\nTO:"
-					+ InternetAddress.toString(message
-							.getRecipients(Message.RecipientType.TO)) + "\nCC:"
-					+ cc + "\n";
-		}
-		System.out.println(to_cc);
+//		String to_cc;
+//		if (cc == null || cc.isEmpty()) {
+//			to_cc = "\nTO:"
+//					+ InternetAddress.toString(message
+//							.getRecipients(Message.RecipientType.TO)) + "\n";
+//		} else {
+//			to_cc = "\nTO:"
+//					+ InternetAddress.toString(message
+//							.getRecipients(Message.RecipientType.TO)) + "\nCC:"
+//					+ cc + "\n";
+//		}
+//		System.out.println(to_cc);
 
 		if (message.isMimeType("text/plain")) {
-			forward.setContent(to_cc + (String) message.getContent(),
+			forward.setContent((String) message.getContent(),
 					"text/plain");
 		} else if (message.isMimeType("text/html")) {
-			forward.setContent(to_cc + (String) message.getContent(),
+			forward.setContent((String) message.getContent(),
 					"text/html");
 		} else if (message.isMimeType("multipart/*")) {
 			Multipart multipart = (Multipart) message.getContent();
-			BodyPart bpart = new MimeBodyPart();
-			bpart.setContent(MimeUtility.encodeText(to_cc, "UTF-8", "B"),
-					"text/plain;charset=utf-8");
-			multipart.addBodyPart(bpart);
+//			BodyPart bpart = new MimeBodyPart();
+//			bpart.setContent(MimeUtility.encodeText(to_cc, "UTF-8", "B"),
+//					"text/plain;charset=utf-8");
+//			multipart.addBodyPart(bpart);
 			forward.setContent(multipart, message.getContentType());
 		}
 
